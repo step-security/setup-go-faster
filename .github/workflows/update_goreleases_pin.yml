@@ -48,7 +48,7 @@ jobs:
 
       - name: open pull request
         if: steps.update.outputs.changed == 'true'
-        uses: step-security/create-pull-request@v7
+        uses: step-security/create-pull-request@v8
         with:
           branch: update-goreleases-pin
           commit-message: "chore: pin goreleases to ${{ steps.update.outputs.new }}"
