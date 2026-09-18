@@ -68,13 +68,19 @@ build_from_source() {
 
 if [ -n "$VERSION" ]; then
   if [ ! -x "$bin_path" ]; then
+    echo "goversion-select: downloading binary for $VERSION from $REPO" >&2
     download_release "$VERSION"
+    echo "goversion-select: download complete" >&2
+  else
+    echo "goversion-select: using cached binary for $VERSION" >&2
   fi
 elif stale_build; then
+  echo "goversion-select: building from source" >&2
   if ! build_from_source; then
     echo "goversion-select: cannot install -- install Go to build from source, or pin the action to a tagged release of setup-go-faster." >&2
     exit 1
   fi
+  echo "goversion-select: build complete" >&2
 fi
 
 exec "$bin_path" "$@"
